@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AplicacaoController;
+use App\Http\Controllers\PessoaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResources([
+    "pessoa" => PessoaController::class,
+    "aplicacao" => AplicacaoController::class
+]);

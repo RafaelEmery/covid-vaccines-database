@@ -21,8 +21,8 @@ class CreatePessoasTable extends Migration
             $table->date('data_nascimento');
             $table->string('nome_mae');
             $table->enum('sexo_genetico', ['masculino', 'feminino']);
-            $table->integer('endereco')->unsigned();
-            $table->foreign('endereco')->references('id_local')->on('locals');
+            $table->integer('local_id')->unsigned();
+            $table->foreign('local_id')->references('id_local')->on('locals');
             $table->enum('estado_civil', ['Solteiro(a)', 'Casado(a)', 'Divorciado(a)', 'Viúvo(a)', 'Separado judicialmente']);
             $table->enum('escolaridade', ['Ensino Fundamental Incompleto', 'Ensino Fundamental Completo', 'Ensino Médio Incompleto', 'Ensino Médio Completo', 'Ensino Superior Incompleto', 'Ensino Superior Completo', 'Especialização', 'Mestrado', 'Doutorado', 'Pós-Doutorado']);
             $table->string('religiao');

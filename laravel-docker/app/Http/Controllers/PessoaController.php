@@ -2,62 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PessoaResource;
 use App\Models\Pessoa;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PessoaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return mixed|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return PessoaResource::collection(Pessoa::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return mixed|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $pessoa = Pessoa::create($request->all());
+        if ($pessoa)
+            return new PessoaResource($pessoa);
+        return \response("Algo inesperado aconteceu", Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Pessoa  $pessoa
-     * @return \Illuminate\Http\Response
+     * @return mixed|\Illuminate\Http\Response
      */
     public function show(Pessoa $pessoa)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pessoa  $pessoa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pessoa $pessoa)
-    {
-        //
+        return new PessoaResource($pessoa);
     }
 
     /**
@@ -65,11 +49,14 @@ class PessoaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Pessoa  $pessoa
-     * @return \Illuminate\Http\Response
+     * @return mixed|\Illuminate\Http\Response
      */
     public function update(Request $request, Pessoa $pessoa)
     {
-        //
+        $atualizado = $pessoa->update($request->all());
+        if ($atualizado)
+            return new PessoaResource($pessoa);
+        return \response("Algo inesperado aconteceu", Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -80,6 +67,7 @@ class PessoaController extends Controller
      */
     public function destroy(Pessoa $pessoa)
     {
-        //
+        $pessoa->delete();
+        return \response("Pessoa deletada com sucesso", Response::HTTP_OK);
     }
 }
