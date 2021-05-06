@@ -14,7 +14,9 @@ class VacinaController extends Controller
      */
     public function index()
     {
-        //
+        $vacinas = Vacina::all();
+
+        return view('vacina.listar', compact('vacinas'));
     }
 
     /**

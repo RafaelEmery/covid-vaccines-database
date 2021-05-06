@@ -14,7 +14,9 @@ class LocalController extends Controller
      */
     public function index()
     {
-        //
+        $locals = Local::all();
+
+        return view('local.listar', compact('locals'));
     }
 
     /**
